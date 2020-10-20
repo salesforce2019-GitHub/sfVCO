@@ -1,0 +1,6 @@
+<apex:page controller="canvas_page_ctlr" sidebar="false" showHeader="false" >
+<div style="border: solid 2px red; width: 400px; height: 400px; padding: 10px;">
+    <p><u>Canvas via Signed Request Demo</u></p>
+    <p>{!rawOutputToScreen}</p>
+</div>
+</apex:page>

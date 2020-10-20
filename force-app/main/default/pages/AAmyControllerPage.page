@@ -1,0 +1,32 @@
+<apex:page controller="AAmyController" tabStyle="Account" >
+    <apex:form >
+    
+        
+        <apex:pageBlock title="Update the Account" id="thePageBlock">
+            <apex:pageBlockSection columns="1">
+            
+            {!aVar}-----{!account.name}
+          
+                
+               <apex:inputField id="aName" value="{!account.name}"/>
+
+               
+                <apex:inputField value="{!account.NumberOfEmployees}" id="thePageBlock1"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.account.fields.Industry.label}"
+                        for="acctIndustry"/>
+                    <apex:actionRegion >
+                        <apex:inputField value="{!account.Industry}" id="acctIndustry">
+                            <apex:actionSupport event="onchange" rerender="thePageBlock1"
+                                status="status"/>
+                        </apex:inputField>
+                    </apex:actionRegion>
+                </apex:pageBlockSectionItem> 
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

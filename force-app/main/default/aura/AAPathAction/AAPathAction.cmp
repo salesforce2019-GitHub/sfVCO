@@ -1,0 +1,75 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId"
+                controller = "AccountController">
+    <aura:attribute name="variant" type="String" default="non-linear"/>
+    <aura:attribute name="hideUpdateButton" type="Boolean" default="false"/>
+    <aura:attribute name="SelectedstepName" type="String"/>
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="simpleRecord" type="Object"/>    
+    <aura:attribute name="openModal" type="boolean" default="true"/>
+    
+    <aura:attribute type="Account[]" name="acctList"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    
+    <aura:attribute name="fields" type="String[]" default="['Name']" />
+    <!-- This is giving error because it loaded before path loads
+     <aura:handler name="init" value="{!this}" action="{!c.handleSelect}"/>
+    -->
+    <lightning:path aura:id="path" recordId="{!v.recordId}"
+                    variant="{!v.variant}"
+                    hideUpdateButton="{!v.hideUpdateButton}"
+                    onselect="{!c.handleSelect}"
+                    />
+    
+    <aura:renderIf isTrue="{!v.SelectedstepName != ''}">
+        <aura:if isTrue="{!v.openModal}">
+            
+            <!--    <lightning:recordForm recordId="{!v.recordId}" 
+                          objectApiName="Opportunity"
+                          layoutType="Compact"                
+                          mode="readonly"
+                                          /> -->   
+            
+            <!--Modal Box Start-->
+            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.handleCloseModal}">
+                            X
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h1 class="slds-text-heading--medium">Process</h1>
+                        
+                    </div>
+                    
+                    <!--Modal Box Header-->
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <center> <p><b>
+                            
+                            </b>
+                            </p></center>
+                        <div style="height: 300px">
+                            
+                            <lightning:recordForm recordId="{!v.recordId}" 
+                          objectApiName="Opportunity"
+                          layoutType="Compact"                
+                          mode="readonly"
+                                          />
+                            <!--
+                            <lightning:datatable data="{! v.acctList }"
+                                                 columns="{! v.mycolumns }"
+                                                 keyField="id"
+                                                 hideCheckboxColumn="true"/> -->
+                        </div>
+                    </div>
+                    <!--Modal Box Button-->
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button--brand" onclick="{!c.handleCloseModal}">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div> 
+            
+        </aura:if>
+    </aura:renderIf>        
+    
+</aura:component>

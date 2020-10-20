@@ -1,0 +1,81 @@
+<apex:page controller="demoAJAXCls">
+<apex:form >
+
+<!--Main frame is mandatory to display content onLoad() function call-->
+<iframe id="myFrame" src="/default.asp"></iframe>
+<iframe id="myFrame1" src="/default.asp"></iframe>
+
+<div id="demo">
+  <h2>Let AJAX change this text</h2>
+  <button type="button" onclick="loadDoc()">Change Content</button>
+</div>
+
+<div id="demoAccount">
+  <h2>Let Get Account from controller query</h2>
+  <button type="button" onclick="loadAccount()">Change Content</button>
+</div> 
+
+<div id="demoRemoteAccount">
+  <h2>Let Get Remote Account from controller query</h2>
+  <button type="button" onclick="getRemoteAccount()">Get Remote Account</button>
+</div> 
+
+
+<script>
+
+<!--This is onload; one function is having timeout foor 2 sec to see if other page gets load and function response come asyncronously-->
+document.getElementById("myFrame").onload = function() {loadAccount()};
+document.getElementById("myFrame1").onload = function() {getRemoteAccount()};
+
+
+<!-- Java script main function which will use on button click; This reads the file from static resource on the same server to avoid XSS cross reference origion issue-->
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+  alert(this.readyState+'--status--'+this.status+'---statusText----'+this.statusText+'----responseText----'+ this.responseText+'--responseXML---'+this.responseXML);
+    if (this.readyState == 4 && this.status == 200) {
+     document.getElementById("demo").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "{!$Resource.AJAXFile}", true);
+  xhttp.send();
+}
+
+
+<!--LoadAccount() function is used with timeout -->
+setTimeout(function loadAccount() {
+    demoAJAXCls.getAccount(function(result, event)
+        {
+           <!-- alert('--status--'+event.status+'---type---'+event.type+'---message---'+event.message+'--result---'+result); -->
+           document.getElementById("demoAccount").innerHTML = JSON.stringify(result);
+            
+        });
+
+},2000)
+
+<!--this funnction is like 1st function but can invoke with diferent way -->
+function getRemoteAccount() {
+    <!-- var accountName = document.getElementById(‘acctSearch’).value;-->
+Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.demoAJAXCls.getAccount}',
+            function(result, event){
+                if (event.status) {
+                    // Code for callback handling
+                    document.getElementById("demoRemoteAccount").innerHTML = JSON.stringify(result);
+                }
+            }, {escape: true});
+}
+
+
+</script>
+
+
+    <apex:pageBlock title="Collage Details">
+        <apex:pageblockSection title="Collage Information">
+            <apex:inputField value="{!act.name}"/>
+        </apex:pageblockSection>
+        <!--apex:pageBlockButtons >
+            <apex:commandButton value="Save Collage" action="{!save}"/>
+        </apex:pageBlockButtons -->
+    </apex:pageBlock>
+   </apex:form>
+</apex:page>

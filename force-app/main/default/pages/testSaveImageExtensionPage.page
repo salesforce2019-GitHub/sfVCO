@@ -1,0 +1,43 @@
+<apex:page showHeader="false" standardController="product2" extensions="testSaveImageExtension">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<script type="text/javascript">
+    window.onload = function(){
+        html2canvas(document.body, {
+            useCORS: true,
+            onrendered: function(canvas) {
+                document.body.appendChild(canvas);
+                document.getElementById("theDiv").style.display = 'none';
+            }
+        });
+    }
+
+    function callActionFunction(){
+        copyImage1(document.getElementsByTagName('canvas')[0].toDataURL());
+    }
+    
+
+   </script>
+
+<style>
+.box{
+    border:5px solid black;
+    height:200px;
+    width:200px;
+    }
+</style>
+
+<apex:form id="theForm" >
+
+<button onclick="callActionFunction()">Attach Image</button>
+
+<apex:actionFunction name="copyImage1" action="{!copyImage}"  rerender="theForm">
+    <apex:param name="imageBlob" assignTo="{!strImageBlob}"  value=""/>
+</apex:actionFunction>
+
+
+<div id="theDiv" class="box"></div>
+
+</apex:form>
+</apex:page>

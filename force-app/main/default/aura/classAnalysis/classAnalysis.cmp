@@ -1,0 +1,141 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                			access="global" controller="NewmdtTreeGrid">
+    
+    <!-- orgional table view >>> metadataInfo-->
+    <!-- orgional Tree view >>> mdtTreeView-->
+    <!-- orgional Tree Grid view >>> mdtTreeGridCls-->
+    
+    <!-- attributes -->
+    <aura:attribute name="data" type="metadataInfoObject[]"/>
+    <aura:attribute name="dataTree" type="Object[]"/>
+    <aura:attribute name="dataJson" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="json" type="String"/>
+
+    <aura:attribute name="filterCount" type="Integer" default="0"/>
+    <aura:attribute name="gridColumns" type="List"/>
+    <aura:attribute name="gridData" type="Object" />
+    <aura:attribute name="gridExpandedRows" type="List"  />
+    
+	<aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+<aura:handler name="change" value="{!v.filter}" action="{!c.doFilter}" />      
+<aura:attribute name="filter" type="String" />
+<aura:attribute name="UnfilteredData" type="Object" /> 
+    <h1>Filter Count:{!v.filterCount}</h1>
+<lightning:input name="x" value="{!v.filter}" label="Filter" placeholder="Search Contact by "/>  
+    
+    
+    <div class="slds-m-bottom_small">
+        <lightning:button variant="brand" label="Expand All" title="Expand All" onclick="{! c.expandAllRows }" />
+		<lightning:button variant="brand" label="Collapse All" title="Collapse All" onclick="{! c.collapseAllRows }" />
+    </div>
+    
+    
+    <!-- TREE GRID VIEW
+	removed expandedRows="{! v.gridExpandedRows }" for testing of expandall and collapse
+	-->
+
+        <lightning:treeGrid
+                            columns="{! v.gridColumns }"
+                            data="{! v.gridData }"
+                            keyField="Name"
+                            aura:id="mytree"
+                            />
+
+    
+    <!-- TREE VIEW-->
+<!--
+    <div style="height: 300px">
+    <lightning:tree items="{! v.dataTree }" header="Class Details"/>
+    </div>
+-->    
+    
+      <!-- NPRMAL TABLE VIEW-->
+    
+    <!--
+    <div style="height: 300px">
+        <lightning:datatable
+                keyField="cmpParentName"
+                data="{! v.data }"
+                columns="{! v.columns }"
+                             hideCheckboxColumn="true">
+      
+        </lightning:datatable>
+    </div>
+               
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Main Class">Main Class</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Dependent Class">Dependent Class</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Main Class">Main Class</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Dependent Class">Dependent Class</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Created Date">Created Date</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Modified Date">Modified Date</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Version">Version</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Char Count">Char Count</div>
+                </th>
+                 <th class="" scope="col">
+                    <div class="slds-truncate" title="Status">Status</div>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            
+            <aura:iteration items="{!v.data}" var="parent">
+                <tr class="slds-hint-parent">
+                    <td data-label="Parent Class Name">
+                        <div class="slds-truncate" title="Cloudhub">{!parent.cmpParentName}</div>
+                    </td>
+                </tr>
+                
+                <aura:iteration items="{!parent.cmpChildDetails}" var="child">
+                   
+                    <tr class="slds-hint-parent">
+                        <td></td>
+                        <td data-label="Parent Class Name">
+                            <div class="slds-truncate" title="Cloudhub">{!child.cmpName}</div>
+                        </td>
+                        <td data-label="Parent Class Name">
+                            <div class="slds-truncate" title="Cloudhub">{!child.createDate}</div>
+                        </td>
+                        <td data-label="Parent Class Name">
+                            <div class="slds-truncate" title="Cloudhub">{!child.modDate}</div>
+                        </td>
+                        <td data-label="Parent Class Name">
+                            <div class="slds-truncate" title="Cloudhub">{!child.apiVer}</div>
+                        </td>
+                        <td data-label="Parent Class Name">
+                            <div class="slds-truncate" title="Cloudhub">{!child.charCount}</div>
+                        </td>
+                        <td data-label="Parent Class Name">
+                            <div class="slds-truncate" title="Cloudhub">{!child.status}</div>
+                        </td>
+                    </tr>
+                    
+                </aura:iteration>   
+ 				
+                
+            </aura:iteration>
+        </tbody>
+    </table>    
+-->
+</aura:component>

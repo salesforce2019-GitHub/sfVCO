@@ -1,0 +1,125 @@
+<apex:page standardcontroller="Account" Extensions="AAJVMExtension" >
+<apex:form id="theForm" >
+
+<apex:pageBlock title="Client Plan">
+ 
+
+
+
+
+<!-- <apex:includeScript value="{! $Resource.AAJQVMap}"/> -->
+<apex:includeScript value="{! $Resource.AAJVMJSFile}"/>
+<apex:includeScript value="{! $Resource.jquery_vmap}"/>
+<apex:includeScript value="{! $Resource.jquery_vmap_world}"/>
+
+<head>
+<title>JQVMap - World Map</title>
+<!--  <link href="/jqvmap-master/dist/jqvmap.css" media="screen" rel="stylesheet" type="text/css" /> -->
+
+<apex:stylesheet value="{!URLFOR($Resource.AAJQVMap,'jqvmap-master/dist/jqvmap.css')}" />
+<!--
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="jsFile.js"></script> 
+<script type="application/json" src="jqvmap-master/dist/jquery.vmap.js"></script>
+<script type="application/json" src="jqvmap-master/dist/maps/jquery.vmap.world.js" charset="utf-8"></script>
+
+China - CN
+Canada - CA
+-->
+
+
+
+<script type="text/javascript">
+window.onload = function(){
+    html2canvas(document.body, {
+        useCORS: true,
+        onrendered: function(canvas) {
+            document.body.appendChild(canvas);
+            document.getElementById("theDiv").style.display = 'none';
+        }
+    });
+}
+
+function callActionFunction(){
+    copyImage(document.getElementsByTagName('canvas')[0].toDataURL());
+}
+</script>
+
+
+
+<script type="text/javascript">
+
+
+jQuery.noConflict();
+jQuery(document).ready(function() {
+  
+jQuery('#vmap').vectorMap({
+      map: 'world_en',
+      enableZoom: true,
+      showTooltip: true,
+      multiSelectRegion: true,
+      selectedRegions: {!sRegion}
+    });
+  
+  var a =       
+jQuery('#vmap').vectorMap({
+      map: 'world_en',
+      enableZoom: true,
+      showTooltip: true,
+      multiSelectRegion: true,
+      selectedRegions: {!sRegion}
+    });
+    
+   
+});
+
+function myFunction(){
+alert('Ashish');
+}
+</script>
+
+</head>
+
+<body>
+<div id="vmap" style="width: 500px; height: 300px;"></div>
+</body>
+
+
+
+
+    <apex:pageBlockTable title="Contacts" value="{!account.Contacts}" var="item">
+
+        <apex:column value="{!item.name}"/>
+        <apex:column value="{!item.lastname}"/>
+
+    </apex:pageBlockTable>
+      
+  <apex:pageBlockButtons >
+    <apex:commandButton action="{!savePdf}" value="Save As PDF"/>
+    <apex:commandButton value="Store" onclick="callActionFunction()"/>
+  </apex:pageBlockButtons>
+  
+<button onclick="callActionFunction()">Attach Image</button>
+
+
+<apex:actionFunction action="{!copyImage}" name="copyImage" rerender="theForm">
+    <apex:param assignTo="{!strImageBlob}" name="imageBlob" value=""/>
+</apex:actionFunction>
+
+
+    <apex:pageBlock >
+        <apex:pageBlockButtons >            
+            <apex:commandButton value="Store" onclick="callActionFunction()"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>     
+     
+</apex:pageBlock>  
+
+     
+         
+        
+        
+
+</apex:form>
+
+</apex:page>

@@ -1,0 +1,8 @@
+<apex:page controller="aaEnforceSecuritySOQL">
+<form>
+-----------------------{!sName}------------<br/>
+</form>
+    <apex:repeat value="{!allTheSecrets}" var="record">
+        {!record.Name} --- {!record.Industry}<br/>
+    </apex:repeat>
+</apex:page>
