@@ -11,6 +11,7 @@ public AAIterableExmple(){
  }
 
 // This is Iterator interface hasNext() method, it will return true if the list 'con' contains record else it will return false.
+//Testing
 
 global boolean hasNext(){
     system.debug('--has next--');
