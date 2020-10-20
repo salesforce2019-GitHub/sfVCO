@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>ExternalId</columns>
+    <columns>DisplayUrl</columns>
+    <columns>account_unique_number_c__c</columns>
+    <columns>accountnumber__c</columns>
+    <columns>accountsource__c</columns>
+    <columns>active_c__c</columns>
+    <columns>createddate__c</columns>
+    <columns>id__c</columns>
+    <columns>isdeleted__c</columns>
+    <columns>name__c</columns>
+    <columns>sfid__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>
