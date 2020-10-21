@@ -7,5 +7,6 @@ public class a{
 public static void b(){
 integer a=0;
 integer x=0;
+integer y=0;    
 }
 }
