@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>MetadataComponentId__c</columns>
+    <columns>MetadataComponentName__c</columns>
+    <columns>MetadataComponentNamespace__c</columns>
+    <columns>MetadataComponentType__c</columns>
+    <columns>RefMetadataComponentId__c</columns>
+    <columns>RefMetadataComponentName__c</columns>
+    <columns>RefMetadataComponentNamespace__c</columns>
+    <columns>RefMetadataComponentType__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>
